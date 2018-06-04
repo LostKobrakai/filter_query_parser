@@ -9,7 +9,10 @@ defmodule FilterQueryParser.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
-      package: package()
+      package: package(),
+      name: "Filter Query Parser",
+      source_url: "https://github.com/LostKobrakai/filter_query_parser",
+      homepage_url: "https://github.com/LostKobrakai/filter_query_parser"
     ]
   end
 
@@ -27,15 +30,13 @@ defmodule FilterQueryParser.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nimble_parsec, "~> 0.2"}
+      {:nimble_parsec, "~> 0.2"},
+      {:ex_doc, "~> 0.16", only: [:dev, :docs], runtime: false}
     ]
   end
 
   defp package() do
     [
-      # This option is only needed when you don't want to use the OTP application name
-      name: "postgrex",
-      # These are the default files included in the package
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Benjamin Milde"],
       licenses: ["Apache 2.0"],

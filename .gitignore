@@ -22,3 +22,5 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 filter_query_parser-*.tar
 
+# OS artifacts
+.DS_Store*
