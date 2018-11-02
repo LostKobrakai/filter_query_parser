@@ -69,6 +69,20 @@ defmodule FilterQueryParser do
       string("<") |> replace(:<)
     ])
 
+  string_starting_with_number =
+    optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> optional(string("0"))
+    |> integer(min: 1)
+    |> utf8_string([], min: 1)
+    |> reduce({Enum, :join, [""]})
+
   # Match integer value and optional operator
   # Default to adding := as operator
   integer =
@@ -81,7 +95,7 @@ defmodule FilterQueryParser do
   defparsec :parse_query,
             field
             |> ignore(ascii_char([?:]))
-            |> choice([date, integer, quoted_string, string])
+            |> choice([date, string_starting_with_number, integer, quoted_string, string])
             |> ignore(optional(string(" ")))
             |> wrap()
             |> repeat()

@@ -17,6 +17,10 @@ defmodule FilterQueryParserTest do
                {:ok, [{"campaign", "My campaign"}]}
     end
 
+    test "text starting with a number" do
+      assert FilterQueryParser.parse(~s(name:02/2018)) == {:ok, [{"name", "02/2018"}]}
+    end
+
     test "number" do
       assert FilterQueryParser.parse("slots:3") == {:ok, [{"slots", :=, 3}]}
       assert FilterQueryParser.parse("slots:>=3") == {:ok, [{"slots", :>=, 3}]}
