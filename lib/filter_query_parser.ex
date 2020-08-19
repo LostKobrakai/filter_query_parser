@@ -35,12 +35,12 @@ defmodule FilterQueryParser do
   # Started with double quotes and terminated by non-escaped ones
   quoted_string =
     ignore(ascii_char([?"]))
-    |> repeat_until(
-      choice([
+    |> repeat(
+      lookahead_not(ascii_char([?"]))
+      |> choice([
         ~S(\") |> string() |> replace(?"),
         utf8_char([])
-      ]),
-      [ascii_char([?"])]
+      ])
     )
     |> ignore(ascii_char([?"]))
     |> reduce({List, :to_string, []})
@@ -88,7 +88,7 @@ defmodule FilterQueryParser do
   integer =
     choice([
       operator |> integer(min: 1),
-      integer(min: 1) |> traverse(:prepend_equal)
+      integer(min: 1) |> post_traverse(:prepend_equal)
     ])
 
   # Parse a query
